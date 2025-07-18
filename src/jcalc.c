@@ -8,7 +8,7 @@
 #define LEXER_INCLUDE_IMPLEMENTATION
 #include "lexer.h"
 
-static char input_buffer[1024];
+static char input_buffer[256];
 
 typedef enum {
     OP_ADD,
@@ -25,7 +25,7 @@ typedef struct {
     size_t length;
 } Bytecode;
 
-typedef uint32_t (*jitfunc)(void);
+typedef uint32_t (*jitfunc_t)(void);
 
 void append_op(Bytecode* code, Op command)
 {
@@ -77,7 +77,7 @@ void gen_bytecode(char* input, Bytecode* bytecode)
     }
 }
 
-jitfunc get_jitfunc(Bytecode* code)
+jitfunc_t get_jitfunc(Bytecode* code)
 {
         /* +3 is an offset for xor rax, rax
          * +1 is an offset for ret
@@ -137,7 +137,21 @@ jitfunc get_jitfunc(Bytecode* code)
         memcpy(exec_code, jit_code, code->length * 6 + 3 + 1);
         free(jit_code);
 
-        return (jitfunc)exec_code;
+        return (jitfunc_t)exec_code;
+}
+
+uint32_t run_jit(Bytecode* code)
+{
+    jitfunc_t func = get_jitfunc(code);
+    
+    uint32_t ret_value = func();
+
+    munmap(func, code->length * 6 + 3 + 1);
+
+    free(code->commands);
+    code->commands = NULL;
+
+    return ret_value;
 }
 
 int main()
@@ -150,11 +164,8 @@ int main()
 
         Bytecode code;
         gen_bytecode(input_buffer, &code);
-
-        printf("Computed value: %d\n", (get_jitfunc(&code))());
-
-        free(code.commands);
-        code.commands = NULL;
+            
+        printf("Computed value: %d\n", run_jit(&code));
     }
 
     return 0;

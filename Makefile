@@ -1,7 +1,6 @@
 CC = gcc
 
-CFLAGS  = -Wall -Wextra
-
+CFLAGS   = -Wall -Wextra
 CPPFLAGS = -Iinclude/ -MMD
 
 LDFLAGS = 
@@ -19,7 +18,6 @@ TARGET = a.out
 all: $(TARGET)
 
 debug: CFLAGS += -g3 -ggdb -fsanitize=address
-debug: CPPFLAGS += 
 debug: all
 
 $(TARGET): $(OBJ)

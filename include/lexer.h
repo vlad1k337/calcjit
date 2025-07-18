@@ -214,15 +214,6 @@ Token get_token(Lexer* lexer)
             new_number.length += 1;
         }
 
-        if(lexer->input_stream[lexer->pos] == '.' && is_digit(lexer->input_stream[lexer->pos + 1]))
-        {
-            new_number.length += 1;
-            while(is_digit(lexer->input_stream[++lexer->pos]))
-            {
-                new_number.length += 1;
-            }
-        }
-
         return new_number;
     }
 
