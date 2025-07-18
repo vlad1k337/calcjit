@@ -1,8 +1,13 @@
 # JIT Calculator
 World's most useless calculator, but it's JIT. 
 
+> [!WARNING]
+> This project was made completely for educational purposes.
+
 ## Example usage
+
 Calculates expressions of form:
+
 ```
 > -1 + 2
 Computed value: 1
@@ -15,8 +20,6 @@ Computed value: 100
 Currently only sum and subtraction operations are supported. More advanced features are on the way. 
 
 ## Quick Start
-Calcjit requires no external dependencies. 
-
 Only Linux + x86-64 is supported.
 ```
 $ make 
