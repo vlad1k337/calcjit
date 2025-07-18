@@ -21,8 +21,8 @@ typedef struct {
 } Op; 
 
 typedef struct {
-    Op*    commands;
     size_t length;
+    Op*    commands;
 } Bytecode;
 
 typedef uint32_t (*jitfunc_t)(void);
@@ -162,7 +162,7 @@ int main()
 
         fgets(input_buffer, 256, stdin);
 
-        Bytecode code;
+        Bytecode code = {0};
         gen_bytecode(input_buffer, &code);
             
         printf("Computed value: %d\n", run_jit(&code));
