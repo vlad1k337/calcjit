@@ -6,7 +6,7 @@ World's most useless calculator, but it's JIT.
 
 ## Example usage
 
-Calculates expressions of form:
+Calculates expressions written in prefix form (NOT Polish Notation):
 
 ```
 > -1 + 2
