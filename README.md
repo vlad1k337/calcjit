@@ -32,4 +32,4 @@ For each command, instruction of form `add rax, NUM` or `sub rax, NUM` are gener
 
 Each JIT-compiled block of code starts with ```xor rax, rax```, and ends with `ret`. All the math calculations are then happening in the `rax` register (which will implicitly store our function's return value). 
 
-After machine code is generated, executable page is being mapped using `mmap`, returning a `void*` where the machine code is going to be copied. We can then freely cast mapped page to a function, and call it normally. Under the hood, C-compiled code will jump to the start of mapped page, executing our freshly compiled machine code.
+After machine code is generated, executable page is being mapped using `mmap`, returning a `void*` where the machine code is going to be copied. We can then freely cast mapped page to a function, and call it normally.
